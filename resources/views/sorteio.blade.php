@@ -127,63 +127,53 @@ input:checked+.slider:before {
                 </table>
             </div>
             <div class="col-md-7">
-
-                
-
-
-
-
-
-
                 <div id="atendimento"></div>
-
-
             </div>
         </div>
     </div>
 
 
     <script>
-                var ativado = false;
-                var botao = document.getElementById("botaoAtivarDesativar");
-                botao.addEventListener("click", function() {
-                    ativado = !ativado;
-                    botao.textContent = ativado ? "Desativar" : "SORTEAR";
-                    if (ativado) {
-                        console.log("Ativado!");
-                        $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/sim');
-                    } else {
-                        $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
-                    }
-                })
-              
+    var ativado = false;
+    var botao = document.getElementById("botaoAtivarDesativar");
+    botao.addEventListener("click", function() {
+        ativado = !ativado;
+        botao.textContent = ativado ? "Desativar" : "SORTEAR";
+        if (ativado) {
+            console.log("Ativado!");
+            $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/sim');
+        } else {
+            $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
+        }
+    })
 
-                $(document).ready(function() {
-                    $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
-                    $('.statusSwitch').on('change', function() {
-                        var itemId = $(this).data('id');
-                        var isChecked = $(this).prop('checked');
-                        var newStatus = isChecked ? '1' : '0';
 
-                        $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
-                        $.ajax({
-                            url: 'https://fabiorangel.com.br/futebol/check',
-                            type: 'POST',
-                            data: {
-                                //_token: '{{ csrf_token() }}',
-                                newStatus: newStatus,
-                                itemId: itemId
-                            },
-                            success: function(response) {
-                                $('#status' + itemId).text(newStatus);
-                            },
-                            error: function(error) {
-                                console.log(error);
-                            }
-                        });
-                    });
-                });
-                </script>
+    $(document).ready(function() {
+        $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
+        $('.statusSwitch').on('change', function() {
+            var itemId = $(this).data('id');
+            var isChecked = $(this).prop('checked');
+            var newStatus = isChecked ? '1' : '0';
+
+            $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
+            $.ajax({
+                url: 'https://fabiorangel.com.br/futebol/check',
+                type: 'POST',
+                data: {
+                    //_token: '{{ csrf_token() }}',
+                    newStatus: newStatus,
+                    itemId: itemId
+                },
+                success: function(response) {
+                    $('#status' + itemId).text(newStatus);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+    </script>
 
 
 
