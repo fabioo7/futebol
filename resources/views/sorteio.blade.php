@@ -156,27 +156,16 @@ input:checked+.slider:before {
                         $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
                     }
                 })
-                </script>
+              
 
-
-                <script>
                 $(document).ready(function() {
-
                     $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
-
-
                     $('.statusSwitch').on('change', function() {
                         var itemId = $(this).data('id');
                         var isChecked = $(this).prop('checked');
                         var newStatus = isChecked ? '1' : '0';
 
                         $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
-
-
-                        console.log(newStatus);
-                        console.log(itemId);
-
-                        // Fazer uma requisição AJAX para a rota Laravel
                         $.ajax({
                             url: 'https://fabiorangel.com.br/futebol/check',
                             type: 'POST',
@@ -186,7 +175,6 @@ input:checked+.slider:before {
                                 itemId: itemId
                             },
                             success: function(response) {
-                                // Atualizar o status na tabela
                                 $('#status' + itemId).text(newStatus);
                             },
                             error: function(error) {
