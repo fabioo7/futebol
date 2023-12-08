@@ -32,28 +32,30 @@ public function __construct()
     public function timesMontados($status) 
     {   
         // Config
-        $qtdJogadoresTime = 5; // numeros de jogadores incluindo goleiro
+        $qtdJogadoresTime = 5; // numeros de jogadores sem o goleiro
         $qtdPartida = 1; // Quantidade de Partidas
-        $qtdMin = 12;
-        $sortear = $status;
+        $qtdMin = 12; //total para iniciar a partida
+        $sortear = $status; // inicia o sorteio
 
-        if($sortear == 'sim'){
+        $participantes = jogadores::where('check_confirmacao', 1);
 
-            $participantes = jogadores::where('check_confirmacao', 1)->inRandomOrder()->get();
-            $totalJogadoresPresentes = $participantes->count();  // Quantidade de Jogadores que Presentes
-            $jogadores = $participantes->where('tipo', 'jogador')->shuffle();
-            $goleiros = $participantes->where('tipo', 'goleiro')->shuffle();
+            if ($sortear == 'sim') {
+                $participantes = $participantes->inRandomOrder();
+            }
 
-        }elseif($sortear == 'nao'){
+        $participantes = $participantes->get();
+        $totalJogadores = $participantes->count();
 
-            $participantes = jogadores::where('check_confirmacao', 1)->get();
-            $totalJogadoresPresentes = $participantes->count();  // Quantidade de Jogadores que Presentes
-            $jogadores = $participantes->where('tipo', 'jogador');
-            $goleiros = $participantes->where('tipo', 'goleiro');   
-        }   
+        $jogadores = $participantes->where('tipo', 'jogador');
+        $goleiros = $participantes->where('tipo', 'goleiro');
 
-            if($totalJogadoresPresentes >= $qtdMin){
-                $times = $jogadores->chunk($qtdJogadoresTime);
+       //foreach ($times as $time) {
+         //   $timesNivel[] = ['time' => $time, 'nivel' => array_sum(array_column($time, 'nivel'))];
+       //}
+
+
+            if($totalJogadores >= $qtdMin){
+                 $times = $jogadores->chunk($qtdJogadoresTime);
                     // Adicionar goleiros aos times
                     foreach ($times as $indiceTime => &$time) {
                         $time[] = $goleiros->shift();
