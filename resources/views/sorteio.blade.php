@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <title>Sorteio</title>
+    <title>Sorteio de Times</title>
 </head>
 <style>
 .pd {
@@ -127,7 +127,7 @@ input:checked+.slider:before {
                 </table>
             </div>
             <div class="col-md-7">
-                <div id="atendimento"></div>
+                <div id="mostraMtimes"></div>
             </div>
         </div>
     </div>
@@ -141,31 +141,31 @@ input:checked+.slider:before {
         botao.textContent = ativado ? "Desativar" : "SORTEAR";
         if (ativado) {
             console.log("Ativado!");
-            $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/sim');
+            $('#mostraMtimes').load('{{ url("timesMontados/sim") }}');
         } else {
-            $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
+            $('#mostraMtimes').load('{{ url("timesMontados/nao") }}');
         }
     })
 
 
     $(document).ready(function() {
-        $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
+        $('#mostraMtimes').load('{{ url("timesMontados/nao") }}');
         $('.statusSwitch').on('change', function() {
             var itemId = $(this).data('id');
             var isChecked = $(this).prop('checked');
-            var newStatus = isChecked ? '1' : '0';
+            var NovoStatus = isChecked ? '1' : '0';
 
-            $('#atendimento').load('https://fabiorangel.com.br/futebol/timesMontados/nao');
+            $('#mostraMtimes').load('{{ url("timesMontados/nao") }}');
             $.ajax({
-                url: 'https://fabiorangel.com.br/futebol/check',
+                url: '{{ url("check") }}',
                 type: 'POST',
                 data: {
                     //_token: '{{ csrf_token() }}',
-                    newStatus: newStatus,
+                    NovoStatus: NovoStatus,
                     itemId: itemId
                 },
                 success: function(response) {
-                    $('#status' + itemId).text(newStatus);
+                    $('#status' + itemId).text(NovoStatus);
                 },
                 error: function(error) {
                     console.log(error);

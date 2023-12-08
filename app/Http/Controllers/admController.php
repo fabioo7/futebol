@@ -80,9 +80,9 @@ public function __construct()
     public function check(Request $request) 
     {
         $itemId  = $request->itemId;
-        $newStatus  = $request->newStatus;
-        DB::table('jogadores')->where('jogadores_id', '=', $itemId) ->update(['check_confirmacao' =>  $newStatus, ]);
-        return response()->json(['status' => $newStatus]);
+        $NovoStatus  = $request->NovoStatus;
+        DB::table('jogadores')->where('jogadores_id', '=', $itemId) ->update(['check_confirmacao' =>  $NovoStatus, ]);
+        return response()->json(['status' => $NovoStatus]);
 
     }
 
