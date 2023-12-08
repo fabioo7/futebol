@@ -16,6 +16,10 @@ class CreateJogadoresTable extends Migration
         Schema::create('jogadores', function (Blueprint $table) {
         $table->increments('jogadores_id');
         $table->string('name' ,80)->nullable();
+        $table->integer('time_id')->nullable();
+        $table->string('tipo' ,12)->nullable();
+        $table->integer('nivel')->nullable();
+        $table->integer('check_confirmacao')->nullable();
         $table->string('description' ,80)->nullable();
         $table->timestamp('created_at')->useCurrent();
         $table->timestamp('updated_at')->useCurrent();
@@ -32,3 +36,5 @@ class CreateJogadoresTable extends Migration
         Schema::dropIfExists('jogadores');
     }
 }
+
+
